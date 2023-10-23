@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import UserServices from "../services/users";
 
-
 class UsersController {
 
     search = async (req: Request, res: Response) => {

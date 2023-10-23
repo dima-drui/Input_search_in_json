@@ -1,5 +1,5 @@
 import db from '../data.json'
-import { User } from '../types';
+import { User } from '../../common/types';
 
 class UserService  {
 
