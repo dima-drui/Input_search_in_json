@@ -6,16 +6,20 @@
 
                     <v-text-field 
                         v-for="(item, index) in fields"
+                        :key="index"
                         v-model="item.field.value.value" 
                         :error-messages="item.field.errorMessage.value" 
-                        :label=item.label
-                        :counter="item.counter ? item.counter : false"
+                        :label="item.label"
+                        :placeholder="item.placeholder"
+                        v-maska:[item.mask]
                         clearable
                         >
                     </v-text-field>
 
                     <v-btn 
                         type="submit"
+                        color="primary"
+                        :disabled="!props.allFieldsValid"
                         >submit
                     </v-btn>
                 </form>
@@ -27,9 +31,11 @@
 <script setup lang="ts">
 import { Fields } from '@/utils/types';
 import { PropType } from 'vue'
+import { vMaska } from "maska"
 
 const props = defineProps({
     fields: {} as PropType<Fields[]>,
+    allFieldsValid: Boolean,
     action: {} as PropType<any>,
 })
 

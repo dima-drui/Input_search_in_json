@@ -10,12 +10,10 @@
             indeterminate
             ></v-progress-circular>
 
-        <v-table v-else hover class="flex-1-1-100 "
->
+        <v-table v-else hover class="flex-1-1-100 ">
             <thead>
                 <tr>
-                    <th 
-                        v-for="(col, index) in props.columns"
+                    <th v-for="(col, index) in props.columns"
                         :key="index"
                         >
                         <b>{{ col.header }}</b>
@@ -23,14 +21,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr 
-                    v-for="(item, index) in props.data"
+                <tr v-for="(item, index) in props.data"
                     :key="index"
                     >
-                    <td 
-                        v-for="(col, index) in props.columns"
-                        :key="index"
-                        >{{ item[col.value] }}</td>
+                        <td v-for="(col, index) in props.columns"
+                            :key="index"
+                            >{{ item[col.value] }}</td>
                 </tr>
             </tbody>
         </v-table>
