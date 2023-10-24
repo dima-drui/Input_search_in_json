@@ -8,7 +8,10 @@ export const useUsersStore = defineStore('users', {
     list: [] as User[],
     waiting: false
   }),
-  
+
+  getters: {
+    getList: (state): User[] => state.list
+  },
   actions: {
     async fetchUsers(params: User) {
         this.waiting = true

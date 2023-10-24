@@ -1,32 +1,39 @@
 <template>
     <v-container>
-        <v-table>
+        <v-table hover>
             <thead>
-            <tr>
-                <th class="text-left">
-                    email
-                </th>
-                <th class="text-left">
-                    number
-                </th>
-            </tr>
+                <tr>
+                    <th 
+                        v-for="(col, index) in props.columns"
+                        :key="index"
+                        >
+                        <b>{{ col.header }}</b>
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            <tr
-                v-for="(item, index) in usersStore.list"
-                :key="index"
-            >
-                <td>{{ item.email }}</td>
-                <td>{{ item.number }}</td>
-            </tr>
+                <tr 
+                    v-for="(item, index) in props.data"
+                    :key="index"
+                    >
+                    <td 
+                        v-for="(col, index) in props.columns"
+                        :key="index"
+                        >{{ item[col.value] }}</td>
+                </tr>
             </tbody>
         </v-table>
     </v-container>
 </template>
 
 <script setup lang="ts">
-import { useUsersStore } from '@/store/users';
+import { Column } from '@/utils/types'
+import { PropType } from 'vue';
 
-const usersStore = useUsersStore()
+const props = defineProps({
+    columns: {} as PropType<Column[]>,
+    data: {} as PropType<any[]>
+})
+
 
 </script>
