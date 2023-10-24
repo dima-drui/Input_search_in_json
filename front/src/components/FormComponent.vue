@@ -3,14 +3,12 @@
         <v-row>
             <v-col cols="6">
                 <form @submit.prevent="submit">
-
                     <v-text-field 
                         v-model="email.value.value" 
                         :error-messages="email.errorMessage.value" 
                         label="E-mail"
                         >
                     </v-text-field>
-
                     <v-text-field 
                         v-model="number.value.value" 
                         :counter="6" 
@@ -18,20 +16,26 @@
                         label="Number (optional)"
                         >
                     </v-text-field>
-
                     <v-btn 
                         type="submit"
                         >submit
                     </v-btn>
-
                 </form>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                {{ usersStore.list }}
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script setup lang="ts">
+import { useUsersStore } from '@/store/app';
 import { useField, useForm } from 'vee-validate'
+
+const usersStore = useUsersStore()
 
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
@@ -40,9 +44,8 @@ const { handleSubmit, handleReset } = useForm({
             if (emailRegx.test(value)) return true
             return 'Must be a valid e-mail.'
         },
-        number(value: number) {  
-            const numStr = value.toString()    
-            if (numStr.length == 0 || numStr.length == 6 ) return true
+        number(value: string = "") {  
+            if (value.length == 0 || value.length == 6 ) return true
             return 'Number should contains 6 digits.'
         }
     }
@@ -51,8 +54,10 @@ const { handleSubmit, handleReset } = useForm({
 const email = useField('email')
 const number = useField('number')
 
-const submit = handleSubmit((values: any) => {
-    alert(JSON.stringify(values, null, 2))
-})
+const submit = handleSubmit( 
+    async (values: any) => {
+        usersStore.fetchUsers(values)
+    }
+)
 
 </script>
