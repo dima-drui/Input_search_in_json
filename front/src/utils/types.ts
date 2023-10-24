@@ -6,5 +6,7 @@ export interface Column {
 export interface Fields {
     field: any, 
     label: string, 
+    placeholder?: string,
+    mask?: any,
     counter?: number
 }

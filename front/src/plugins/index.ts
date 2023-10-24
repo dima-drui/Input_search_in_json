@@ -7,7 +7,6 @@
 // Plugins
 import vuetify from './vuetify'
 import pinia from '../store'
-
 // Types
 import type { App } from 'vue'
 
