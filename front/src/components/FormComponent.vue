@@ -23,16 +23,11 @@
                 </form>
             </v-col>
         </v-row>
-        <v-row>
-            <v-col>
-                {{ usersStore.list }}
-            </v-col>
-        </v-row>
     </v-container>
 </template>
 
 <script setup lang="ts">
-import { useUsersStore } from '@/store/app';
+import { useUsersStore } from '@/store/users';
 import { useField, useForm } from 'vee-validate'
 
 const usersStore = useUsersStore()
@@ -61,3 +56,4 @@ const submit = handleSubmit(
 )
 
 </script>
+@/store/users
