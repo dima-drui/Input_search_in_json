@@ -8,6 +8,7 @@
             <ListComponents 
                 :columns=userColumns 
                 :data=usersStore.getList 
+                :waiting=usersStore.getWaiting
             />
         </v-main>
     </v-app>

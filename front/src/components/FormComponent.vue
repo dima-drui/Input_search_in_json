@@ -10,6 +10,7 @@
                         :error-messages="item.field.errorMessage.value" 
                         :label=item.label
                         :counter="item.counter ? item.counter : false"
+                        clearable
                         >
                     </v-text-field>
 

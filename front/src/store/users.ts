@@ -10,7 +10,8 @@ export const useUsersStore = defineStore('users', {
   }),
 
   getters: {
-    getList: (state): User[] => state.list
+    getList: (state): User[] => state.list,
+    getWaiting: (state): boolean => state.waiting
   },
   actions: {
     async fetchUsers(params: User) {

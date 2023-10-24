@@ -1,6 +1,17 @@
 <template>
     <v-container>
-        <v-table hover>
+
+        <v-progress-circular
+            v-if="props.waiting"
+            class="align-center"
+            size="50"
+            width="5"
+            color="info"
+            indeterminate
+            ></v-progress-circular>
+
+        <v-table v-else hover class="flex-1-1-100 "
+>
             <thead>
                 <tr>
                     <th 
@@ -32,7 +43,8 @@ import { PropType } from 'vue';
 
 const props = defineProps({
     columns: {} as PropType<Column[]>,
-    data: {} as PropType<any[]>
+    data: {} as PropType<any[]>,
+    waiting: Boolean
 })
 
 
