@@ -1,5 +1,5 @@
-export interface Res {
-    data: any,
+export interface Res<T> {
+    data: T | any,
     error: any,
 }
 

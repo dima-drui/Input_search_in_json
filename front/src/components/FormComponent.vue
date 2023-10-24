@@ -2,20 +2,15 @@
     <v-container>
         <v-row>
             <v-col cols="6">
-                <form @submit.prevent="submit">
+                <form @submit.prevent="action">
 
                     <v-text-field 
-                        v-model="email.value.value" 
-                        :error-messages="email.errorMessage.value" 
-                        label="E-mail"
-                        >
-                    </v-text-field>
-
-                    <v-text-field 
-                        v-model="number.value.value" 
-                        :counter="6" 
-                        :error-messages="number.errorMessage.value"
-                        label="Number (optional)"
+                        v-for="(item, index) in fields"
+                        v-model="item.field.value.value" 
+                        :error-messages="item.field.errorMessage.value" 
+                        :label=item.label
+                        :counter="item.counter ? item.counter : false"
+                        clearable
                         >
                     </v-text-field>
 
@@ -23,7 +18,6 @@
                         type="submit"
                         >submit
                     </v-btn>
-
                 </form>
             </v-col>
         </v-row>
@@ -31,28 +25,14 @@
 </template>
 
 <script setup lang="ts">
-import { useField, useForm } from 'vee-validate'
+import { Fields } from '@/utils/types';
+import { PropType } from 'vue'
 
-const { handleSubmit, handleReset } = useForm({
-    validationSchema: {
-        email(value: string) {
-            const emailRegx = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi
-            if (emailRegx.test(value)) return true
-            return 'Must be a valid e-mail.'
-        },
-        number(value: number) {  
-            const numStr = value.toString()    
-            if (numStr.length == 0 || numStr.length == 6 ) return true
-            return 'Number should contains 6 digits.'
-        }
-    }
+const props = defineProps({
+    fields: {} as PropType<Fields[]>,
+    action: {} as PropType<any>,
 })
 
-const email = useField('email')
-const number = useField('number')
-
-const submit = handleSubmit((values: any) => {
-    alert(JSON.stringify(values, null, 2))
-})
 
 </script>
+@/store/users
