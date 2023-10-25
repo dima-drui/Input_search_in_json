@@ -2,7 +2,7 @@
     <v-container>
 
         <v-progress-circular
-            v-if="props.waiting"
+            v-if="props.loading"
             class="align-center"
             size="50"
             width="5"
@@ -40,7 +40,7 @@ import { PropType } from 'vue';
 const props = defineProps({
     columns: {} as PropType<Column[]>,
     data: {} as PropType<any[]>,
-    waiting: Boolean
+    loading: Boolean
 })
 
 

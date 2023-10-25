@@ -1,9 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 class Api {
-
     private readonly api: AxiosInstance;
-
     constructor(baseUrl: string) {
         this.api = axios.create({
             baseURL: baseUrl,
@@ -11,11 +9,12 @@ class Api {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
+            timeout: 10000,
         });
     }
 
     public async get<T>(url: string, params?: any): Promise<T> {
-        const response = await this.api.get<T>(this.api.defaults.baseURL + url, params);
+        const response = await this.api.get<T>(this.api.defaults.baseURL + url, params)
         return response.data;
     }
 
