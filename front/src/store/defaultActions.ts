@@ -1,24 +1,41 @@
 import api from "@/utils/api";
 import { DefaultActions } from "../utils/types";
 
-const reqMap = new Map<string, AbortController>()
-let controller
+interface ReqMap {
+    [key: string]: AbortController
+}
+const reqMap: ReqMap = {}
 
 export const defaultActions: DefaultActions = {
     async getSearch(this: any, params?: any):Promise<void>  {
-
-        if(reqMap.has(params)) {
-            reqMap.get(params)?.abort()
-            reqMap.delete(params)
+        try {
+            this.loading = true
+            this.list = []
+            const reqKey = JSON.stringify(params)
+            removePendingRequest(reqKey)
+            const controller = createController(reqKey)
+            const { data }: any = await api.get(this.entity, { params: params, signal: controller.signal })
+            this.list = data
         }
-
-        let controller = new AbortController()
-        reqMap.set(params, controller);
-
-        this.loading = true
-        this.list = []
-        const { data }: any = await api.get(this.entity, { params: params, signal: controller.signal })
-        this.list = data
-        this.loading = false
+        catch(error: any){
+            console.warn(`getSearch error: ${error.message}`)
+        }
+        finally{
+            delete reqMap[JSON.stringify(params)]
+            this.loading = false
+        }
     }
+}
+
+function removePendingRequest(key: string): void {
+    if(reqMap[key]) {
+        reqMap[key].abort()
+        delete reqMap[key]
+    }
+}
+
+function createController(key: string): AbortController{
+    const controller = new AbortController()
+    reqMap[key] = controller
+    return controller
 }

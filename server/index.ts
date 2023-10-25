@@ -15,7 +15,7 @@ app.use( (req, res, next)=>{
         ()=> { 
             next() 
         },
-        2000
+        5000
     )
 })
 

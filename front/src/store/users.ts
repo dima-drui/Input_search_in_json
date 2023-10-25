@@ -1,13 +1,13 @@
 // Utilities
 import { defineStore } from 'pinia'
-import api from "@/utils/api";
-import { Res, User } from '../../../common/types'
+import { User } from '../../../common/types'
+import { defaultActions } from './defaultActions';
 
 export const useUsersStore = defineStore('users', {
   state: () => ({
+    entity: 'users',
     list: [] as User[],
     loading: false,
-    controller: new AbortController(),
   }),
 
   getters: {
@@ -15,16 +15,6 @@ export const useUsersStore = defineStore('users', {
     getLoading: (state): boolean => state.loading
   },
   actions: {
-    async getSearch(params: User) {
-        if (this.loading) {
-            this.controller.abort();
-        }
-        this.controller = new AbortController();
-        this.loading = true
-        this.list = []
-        const { data } = await api.get<Res<User[]>>('users', { params: params, signal: this.controller.signal })
-        this.list = data
-        this.loading = false
-    }
+    ...defaultActions
   }
 })
