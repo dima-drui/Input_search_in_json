@@ -1,31 +1,33 @@
 <template>
-    <v-container>
-        <v-row>
-            <v-col cols="6">
-                <form @submit.prevent="action">
+    <v-row class="d-flex justify-center ">
+        <v-col cols="6">
+            <form 
+                class="d-flex flex-column justify-center"
+                @submit.prevent="action" 
+                >
+                <v-text-field 
+                    v-for="(item, index) in fields"
+                    :key="index"
+                    v-model="item.field.value.value" 
+                    :error-messages="item.field.errorMessage.value" 
+                    :label="item.label"
+                    :placeholder="item.placeholder"
+                    v-maska:[item.mask]
+                    clearable
+                    >
+                </v-text-field>
 
-                    <v-text-field 
-                        v-for="(item, index) in fields"
-                        :key="index"
-                        v-model="item.field.value.value" 
-                        :error-messages="item.field.errorMessage.value" 
-                        :label="item.label"
-                        :placeholder="item.placeholder"
-                        v-maska:[item.mask]
-                        clearable
-                        >
-                    </v-text-field>
-
-                    <v-btn 
-                        type="submit"
-                        color="primary"
-                        :disabled="!props.allFieldsValid"
-                        >submit
-                    </v-btn>
-                </form>
-            </v-col>
-        </v-row>
-    </v-container>
+                <v-btn 
+                    class="mx-auto"
+                    width="250px"
+                    type="submit"
+                    color="primary"
+                    :disabled="!props.allFieldsValid"
+                    >submit
+                </v-btn>
+            </form>
+        </v-col>
+    </v-row>
 </template>
 
 <script setup lang="ts">

@@ -1,17 +1,19 @@
 <template>
     <v-app>
         <v-main>
-            <FormComponent 
-                :fields="formFields"
-                :all-fields-valid="isAllFieldsValid"
-                :action="submit"
+            <v-container>
+                <FormComponent 
+                    :fields="formFields"
+                    :all-fields-valid="isAllFieldsValid"
+                    :action="submit"
                 />
-            <ListComponents 
-                :columns="userColumns" 
-                :data="usersStore.getList" 
-                :loading="usersStore.getLoading"
-                :error="usersStore.getError"
-            />
+                <ListComponents 
+                    :columns="userColumns" 
+                    :data="usersStore.getList" 
+                    :loading="usersStore.getLoading"
+                    :error="usersStore.getError"
+                />
+            </v-container>
         </v-main>
     </v-app>
 </template>
@@ -39,18 +41,22 @@ const { handleSubmit } = useForm({
         }
     }
 })
+
 const email = useField('email')
 const number = useField('number')
-const isAllFieldsValid = useIsFormValid()
 
+// define form fields
 const formFields: Fields[] = [
     { field: email, label: 'E-Mail', placeholder: 'abc@de.com' },
     { field: number, label: 'Number (optional)', placeholder: '12-34-56', mask: {mask: '##-##-##'} }
 ]
 
+const isAllFieldsValid = useIsFormValid()
+
+// define table columns
 const userColumns: Column[] = [
     { value: 'email', header: 'Email' },
-    { value: 'number', header: 'number' }
+    { value: 'number', header: 'Number' }
 ]
 
 const submit = handleSubmit(

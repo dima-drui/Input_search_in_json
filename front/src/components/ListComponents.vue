@@ -1,39 +1,51 @@
 <template>
-    <v-container>
-        <v-table hover class="flex-1-1-100 ">
+  <v-sheet class="ma-5 d-flex flex-column justify-space-between" elevation="4">
 
+        <section v-if="props.loading && props.data.length == 0 "
+            class="d-flex justify-center pa-5"
+            >
+            <v-progress-circular
+                size="50"
+                width="5"
+                color="info"
+                indeterminate
+                ></v-progress-circular>
+        </section>
+
+        <section v-else>
+            <v-table hover>
             <thead>
                 <tr>
                     <th v-for="(col, index) in props.columns"
                         :key="index"
+                        class="text-center"
+                        :width="tableWidth"
                         >
                         <b>{{ col.header }}</b>
                     </th>
                 </tr>
             </thead>
 
-            <tbody v-if="props.data.length > 0">
-                <tr v-for="(item, index) in props.data"
+            <tbody>
+                <tr v-if="props.data.length < 1"
+                    style="height: 5rem; line-height: 5rem; text-align: center; font-style: italic;"
+                    >
+                    {{ props.error }}
+                </tr>
+
+                <tr v-if="props.data.length > 0"
+                    v-for="(item, index) in props.data"
                     :key="index"
                     >
                         <td v-for="(col, index) in props.columns"
                             :key="index"
+                            class="text-center"
                             >{{ item[col.value] }}</td>
                 </tr>
             </tbody>
-
-            <v-progress-circular v-if="props.loading && props.data.length == 0 "
-                class="align-center"
-                size="50"
-                width="5"
-                color="info"
-                indeterminate
-                ></v-progress-circular>
-
-            <section v-else>{{ props.error }}</section>
-
         </v-table>
-    </v-container>
+    </section>
+  </v-sheet>
 </template>
 
 <script setup lang="ts">
@@ -52,6 +64,8 @@ const props = defineProps({
     loading: Boolean,
     error: String
 })
+
+const tableWidth = Math.floor(100 / props.columns.length) + '%'
 
 
 </script>
