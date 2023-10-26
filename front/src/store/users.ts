@@ -8,11 +8,13 @@ export const useUsersStore = defineStore('users', {
     entity: 'users',
     list: [] as User[],
     loading: false,
+    error: '' as string
   }),
 
   getters: {
     getList: (state): User[] => state.list,
-    getLoading: (state): boolean => state.loading
+    getLoading: (state): boolean => state.loading,
+    getError: (state): string => state.error
   },
   actions: {
     ...defaultActions

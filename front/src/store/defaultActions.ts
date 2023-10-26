@@ -9,20 +9,24 @@ const reqMap: ReqMap = {}
 export const defaultActions: DefaultActions = {
     async getSearch(this: any, params?: any):Promise<void>  {
         try {
-            this.loading = true
-            this.list = []
             const reqKey = JSON.stringify(params)
+            this.error = ''
+            this.list = []
+            this.loading = true
             removePendingRequest(reqKey)
             const controller = createController(reqKey)
             const { data }: any = await api.get(this.entity, { params: params, signal: controller.signal })
             this.list = data
+            this.loading = false
         }
         catch(error: any){
-            console.warn(`getSearch error: ${error.message}`)
+            if(error.message !== 'canceled'){
+                this.error = 'Something went wrong, try again'
+                this.loading = false
+            }
         }
         finally{
             delete reqMap[JSON.stringify(params)]
-            this.loading = false
         }
     }
 }

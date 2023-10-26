@@ -20,7 +20,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="props.data.length > 0">
                 <tr v-for="(item, index) in props.data"
                     :key="index"
                     >
@@ -29,6 +29,9 @@
                             >{{ item[col.value] }}</td>
                 </tr>
             </tbody>
+            <section v-if="props.error">
+                {{ props.error }}
+            </section>
         </v-table>
     </v-container>
 </template>
@@ -38,9 +41,16 @@ import { Column } from '@/utils/types'
 import { PropType } from 'vue';
 
 const props = defineProps({
-    columns: {} as PropType<Column[]>,
-    data: {} as PropType<any[]>,
-    loading: Boolean
+    columns: {
+        type: Array as PropType<Column[]>,
+        required: true
+    },
+    data: {
+        type: Array as PropType<any[]>, 
+        required: true
+    },
+    loading: Boolean,
+    error: String
 })
 
 
