@@ -8,7 +8,7 @@ export const useUsersStore = defineStore('users', {
     entity: 'users',
     list: [] as User[],
     loading: false,
-    error: '' as string
+    error: 'Enter email and click "Submit"' as string
   }),
 
   getters: {
