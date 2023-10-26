@@ -1,4 +1,5 @@
 Front: Vue 3 / Pinia / Vietify / Axios / vee-validate / maska
+
 Back: NodeJS / Express / lodash / morgan
 
 ## Project setup
@@ -20,3 +21,7 @@ Server Development:
 ```bash
 npm run server:dev
 ```
+
+
+
+
