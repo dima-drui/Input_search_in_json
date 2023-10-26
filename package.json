@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "front:dev": "npm run dev --prefix front",
+    "server:dev": "npm run dev --prefix server",
     "setup": "npm install --prefix front && npm install --prefix server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
