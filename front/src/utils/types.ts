@@ -14,3 +14,7 @@ export interface Fields {
 export interface DefaultActions {
     getSearch(params?: any): Promise<void>
 }
+
+export interface ReqMap {
+    [key: string]: AbortController
+}
