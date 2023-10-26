@@ -7,3 +7,7 @@ export interface User {
     email: string
     number: string
 }
+
+export interface Rgx {
+    [key: string]: ()=> RegExp
+}

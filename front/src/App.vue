@@ -22,14 +22,15 @@ import ListComponents from '@/components/ListComponents.vue'
 import { Column, Fields } from '@/utils/types'
 import { useUsersStore } from '@/store/users';
 import { useField, useForm, useIsFormValid } from 'vee-validate'
+import { rgx } from '../../common/rgx'
 
 const usersStore = useUsersStore()
 
 const { handleSubmit } = useForm({
     validationSchema: {
         email(value: string) {
-            const emailRegx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-            if (emailRegx.test(value)) return true
+            if (rgx.email().test(value)) 
+            return true
             return 'Check e-mail.'
         },
         number(value: string = "") {  

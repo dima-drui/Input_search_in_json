@@ -5,7 +5,7 @@ class UserService  {
 
     public async search(params: any): Promise<User[]> {
         try {
-            const result = db.filter((a) => {
+            const result: User[] = db.filter((a: User) => {
                 return params.number
                     ? a.number == params.number && a.email == params.email
                     : a.email == params.email
