@@ -10,3 +10,11 @@ export interface Fields {
     mask?: any,
     counter?: number
 }
+
+export interface DefaultActions {
+    getSearch(params?: any): Promise<void>
+}
+
+export interface ReqMap {
+    [key: string]: AbortController
+}

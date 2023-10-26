@@ -1,25 +1,22 @@
 // Utilities
 import { defineStore } from 'pinia'
-import api from "@/utils/api";
-import { Res, User } from '../../../common/types'
+import { User } from '../../../common/types'
+import { defaultActions } from './defaultActions';
 
 export const useUsersStore = defineStore('users', {
   state: () => ({
+    entity: 'users',
     list: [] as User[],
-    waiting: false
+    loading: false,
+    error: '' as string
   }),
 
   getters: {
     getList: (state): User[] => state.list,
-    getWaiting: (state): boolean => state.waiting
+    getLoading: (state): boolean => state.loading,
+    getError: (state): string => state.error
   },
   actions: {
-    async fetchUsers(params: User) {
-        this.waiting = true
-        this.list = []
-        const { data } = await api.get<Res<User[]>>('users', { params: params })
-        this.list = data
-        this.waiting = false
-    }
+    ...defaultActions
   }
 })

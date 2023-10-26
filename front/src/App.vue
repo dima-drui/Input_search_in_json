@@ -9,7 +9,8 @@
             <ListComponents 
                 :columns="userColumns" 
                 :data="usersStore.getList" 
-                :waiting="usersStore.getWaiting"
+                :loading="usersStore.getLoading"
+                :error="usersStore.getError"
             />
         </v-main>
     </v-app>
@@ -51,10 +52,10 @@ const userColumns: Column[] = [
     { value: 'number', header: 'number' }
 ]
 
-const submit = handleSubmit( 
+const submit = handleSubmit(
     async (values: any) => {
         if(values.number) values.number = values.number.replace(/-/g, "")
-        usersStore.fetchUsers(values)
+        await usersStore.getSearch(values)
     }
 )
 </script>
