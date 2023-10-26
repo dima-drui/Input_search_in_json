@@ -1,16 +1,7 @@
 <template>
     <v-container>
+        <v-table hover class="flex-1-1-100 ">
 
-        <v-progress-circular
-            v-if="props.loading"
-            class="align-center"
-            size="50"
-            width="5"
-            color="info"
-            indeterminate
-            ></v-progress-circular>
-
-        <v-table v-else hover class="flex-1-1-100 ">
             <thead>
                 <tr>
                     <th v-for="(col, index) in props.columns"
@@ -20,6 +11,7 @@
                     </th>
                 </tr>
             </thead>
+
             <tbody v-if="props.data.length > 0">
                 <tr v-for="(item, index) in props.data"
                     :key="index"
@@ -29,9 +21,17 @@
                             >{{ item[col.value] }}</td>
                 </tr>
             </tbody>
-            <section v-if="props.error">
-                {{ props.error }}
-            </section>
+
+            <v-progress-circular v-if="props.loading && props.data.length == 0 "
+                class="align-center"
+                size="50"
+                width="5"
+                color="info"
+                indeterminate
+                ></v-progress-circular>
+
+            <section v-else>{{ props.error }}</section>
+
         </v-table>
     </v-container>
 </template>
